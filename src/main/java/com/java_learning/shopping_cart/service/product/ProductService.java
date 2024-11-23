@@ -6,6 +6,7 @@ import com.java_learning.shopping_cart.model.Product;
 import com.java_learning.shopping_cart.repository.CategoryRepository;
 import com.java_learning.shopping_cart.repository.ProductRepository;
 import com.java_learning.shopping_cart.request.AddProductRequest;
+import com.java_learning.shopping_cart.request.UpdateProductRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,8 +46,24 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Product updateProduct(Product product, Long id) {
-        return null;
+    public Product updateProduct(UpdateProductRequest product, Long id) {
+        return productRepository.findById(id)
+            .map(existingProduct -> updateExistingProduct(existingProduct, product))
+                .map(productRepository :: save)
+                .orElseThrow(() -> new ProductNotFoundException("Product not found"));
+    }
+
+    private Product updateExistingProduct ( Product existingProduct, UpdateProductRequest newProductData ) {
+        existingProduct.setName(newProductData.getName());
+        existingProduct.setBrand(newProductData.getBrand());
+        existingProduct.setDescription(newProductData.getDescription());
+        existingProduct.setPrice(newProductData.getPrice());
+        existingProduct.setInventory(newProductData.getInventory());
+
+        Category category = categoryRepository.findByName(newProductData.getCategory().getName());
+        existingProduct.setCategory(category);
+
+        return existingProduct;
     }
 
     @Override

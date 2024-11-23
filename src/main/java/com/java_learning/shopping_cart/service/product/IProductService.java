@@ -3,12 +3,13 @@ package com.java_learning.shopping_cart.service.product;
 import com.java_learning.shopping_cart.model.Category;
 import com.java_learning.shopping_cart.model.Product;
 import com.java_learning.shopping_cart.request.AddProductRequest;
+import com.java_learning.shopping_cart.request.UpdateProductRequest;
 
 import java.util.List;
 
 public interface IProductService {
     Product addProduct(AddProductRequest product);
-    Product updateProduct(Product product, Long id);
+    Product updateProduct(UpdateProductRequest product, Long id);
     Product getProductById(Long id);
     void deleteProduct(Long id);
     List<Product> getAllProducts();

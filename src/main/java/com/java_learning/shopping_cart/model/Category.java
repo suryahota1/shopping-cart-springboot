@@ -1,15 +1,10 @@
 package com.java_learning.shopping_cart.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.List;
 
-@Getter
-@Setter
 @Entity
 @NoArgsConstructor
 public class Category {
@@ -36,5 +31,17 @@ public class Category {
 
     public List<Product> getProducts() {
         return products;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 }

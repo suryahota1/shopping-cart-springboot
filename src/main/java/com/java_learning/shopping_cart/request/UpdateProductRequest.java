@@ -1,43 +1,17 @@
-package com.java_learning.shopping_cart.model;
+package com.java_learning.shopping_cart.request;
 
-import jakarta.persistence.*;
-import lombok.*;
+import com.java_learning.shopping_cart.model.Category;
 
 import java.math.BigDecimal;
-import java.util.List;
 
-@Entity
-@NoArgsConstructor
-public class Product {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class UpdateProductRequest {
     private Long id;
-
     private String name;
-
     private String brand;
-
     private String description;
-
     private BigDecimal price;
-
     private int inventory;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "category_id")
     private Category category;
-
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Image> images;
-
-    public Product(String name, String brand, String description, BigDecimal price, int inventory, Category category) {
-        this.name = name;
-        this.brand = brand;
-        this.description = description;
-        this.price = price;
-        this.inventory = inventory;
-        this.category = category;
-    }
 
     public String getName() {
         return name;
@@ -85,13 +59,5 @@ public class Product {
 
     public void setCategory(Category category) {
         this.category = category;
-    }
-
-    public List<Image> getImages() {
-        return images;
-    }
-
-    public void setImages(List<Image> images) {
-        this.images = images;
     }
 }
